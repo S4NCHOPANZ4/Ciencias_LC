@@ -19,6 +19,7 @@ public class Controller {
 
     // --- Atributos ---
     private ListaJugadores lista;
+    private Jugador actual;
 
     /**
      * Constructor.
@@ -40,6 +41,8 @@ public class Controller {
         for (int i = 1; i <= cantidad; i++) {
             lista.agregarJugador(i);
         }
+        
+        actual = lista.getCabeza(); //establece el primer turno
     }
 
     /**
@@ -66,28 +69,19 @@ public class Controller {
      * Si el número es par, el jugador se salva y el turno pasa al siguiente. 
      * Si es impar, el jugador actual es eliminado de la lista circular.
      *
-     * @param actual El {@code Jugador} del turno actual.
      * @param dado El resultado numérico obtenido tras tirar el dado.
-     * @return El objeto {@code Jugador} al que le corresponde jugar el siguiente turno.
      */
-    public Jugador ejecutarTurno(Jugador actual, int dado) {
+    public Jugador ejecutarTurno(Jugador actrual,int dado) {
         if (parImpar(dado)) {
-            return actual.getNext();
+            
+            actual = actual.getNext();
         } else {
             int proximoId = lista.eliminarYObtenerSiguiente(actual.getNumero());
-            return lista.buscarJugador(proximoId);
+            actual = lista.buscarJugador(proximoId);
         }
+        return actual;
     }
-
-    /**
-     * Obtiene la instancia actual.
-     *
-     * @return El objeto {@code ListaJugadores} con el estado actual de la partida.
-     */
-    public ListaJugadores getLista() {
-        return lista;
-    }
-
+    
     /**
      * Método principal que Simula la partida completa.
      * Pide la cantidad inicial de jugadores e itera los turnos consecutivamente 
@@ -112,12 +106,42 @@ public class Controller {
                 mensaje += "Jugador #" + actual.getNumero() + " Salvado\n";
             }
             
-            actual = ejecutarTurno(actual, dado);
+            actual = ejecutarTurno(actual,dado);
             
         }
         
         mensaje += "GANADOR FINAL: Jugador #" + lista.getCabeza().getNumero();
         
         return mensaje;
+    }
+    
+        /**
+     * Obtiene la instancia actual.
+     *
+     * @return El objeto {@code ListaJugadores} con el estado actual de la partida.
+     */
+    public ListaJugadores getLista() {
+        return lista;
+    }
+    
+     /**
+     * Retorna el jugador actual
+     *
+     * @return el numero del jugador actual
+     */
+    public int getActual() {
+        return (actual != null) ? actual.getNumero() : -1;
+    }
+    
+    public int getTamanioLista() {
+        return lista.getTamanio();
+    }
+    
+    public String obtenerEstadoLista() {
+        return lista.mostrarJugadores();
+    }
+    
+    public int obtenerGanador() {
+        return (lista.getCabeza() != null) ? lista.getCabeza().getNumero() : -1;
     }
 }
