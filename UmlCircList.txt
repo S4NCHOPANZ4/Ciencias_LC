@@ -1,0 +1,77 @@
+@startuml
+package model {
+    class Jugador {
+        - numero : int
+        - next : Jugador
+        + getNumero() : int
+        + getNext() : Jugador
+        + setNext(Jugador) : void
+    }
+    class ListaJugadores {
+        - tail : Jugador
+        - tamanio : int
+        + agregarJugador(int) : void
+        + eliminarYObtenerSiguiente(int) : int
+        + buscarJugador(int) : Jugador
+        + getCabeza() : Jugador
+        + getTamanio() : int
+        + mostrarJugadores() : void
+    }
+    ListaJugadores *-- Jugador : composicion
+    Jugador --> Jugador : next
+}
+package view {
+    class VistaConsola {
+        + mostrarInformacion(String) : void
+        + leerDato(String) : String
+    }
+    class VistaSwing {
+        + btnIniciar : JButton
+        + btnSiguiente : JButton
+        + campoJugadores : JTextField
+        + lblInfo : JLabel
+        + logArea : JTextArea
+        + tablero : TableroPanel
+        + log(String) : void
+        + getCantidad() : int
+    }
+    class TableroPanel {
+        - jugadores : List<Integer>
+        - actualId : int
+        + actualizar(List, int) : void
+        + paintComponent(Graphics) : void
+    }
+    VistaSwing +-- TableroPanel : inner class
+}
+package controller {
+    class AppMain {
+        + main(String[]) : void
+    }
+    class Controller {
+        - lista : ListaJugadores
+        - vc : VistaConsola
+        + inicializarJugadores(int) : void
+        + tirarDado() : int
+        + parImpar(int) : boolean
+        + ejecutarTurno(Jugador, int) : Jugador
+        + tirarDados(Jugador) : Jugador
+        + jugar() : void
+        + run() : void
+    }
+    class ControllerSwing {
+        - controller : Controller
+        - vista : VistaSwing
+        - actual : Jugador
+        + run() : void
+        - iniciarJuego() : void
+        - siguienteTurno() : void
+        - idsActuales() : List<Integer>
+    }
+    AppMain ..> Controller : usa
+    Controller *-- ListaJugadores : composicion
+    Controller *-- VistaConsola : composicion
+    ControllerSwing *-- Controller : composicion
+    ControllerSwing *-- VistaSwing : composicion
+    ControllerSwing o-- Jugador : agregacion
+}
+@enduml
