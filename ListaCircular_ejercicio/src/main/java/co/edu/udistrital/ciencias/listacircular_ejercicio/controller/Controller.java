@@ -3,14 +3,11 @@ package co.edu.udistrital.ciencias.listacircular_ejercicio.controller;
 
 import co.edu.udistrital.ciencias.listacircular_ejercicio.model.Jugador;
 import co.edu.udistrital.ciencias.listacircular_ejercicio.model.ListaJugadores;
-import co.edu.udistrital.ciencias.listacircular_ejercicio.view.VistaConsola;
 import java.util.Random;
 
 /**
  * Clase principal de control contiene la lógica del juego.
  * <p>
- * Se encarga de gestionar la interacción entre la interfaz  
- * y la estructura de datos circular. 
  * Controla el flujo de los turnos y la generación de números aleatorios (dado) 
  * y las reglas de eliminación de los jugadores hasta que quede un único ganador.
  * </p>
@@ -22,15 +19,13 @@ public class Controller {
 
     // --- Atributos ---
     private ListaJugadores lista;
-    private VistaConsola   vc;
 
     /**
      * Constructor.
-     * Inicializa las instancias del modelo y la vista.
+     * Inicializa la instancia del modelo.
      */
     public Controller() {
         lista = new ListaJugadores();
-        vc    = new VistaConsola();
     }
 
     /**
@@ -68,7 +63,6 @@ public class Controller {
     }
 
     /**
-     * Ejecuta la lógica de un turno individual basándose en el resultado del dado.
      * Si el número es par, el jugador se salva y el turno pasa al siguiente. 
      * Si es impar, el jugador actual es eliminado de la lista circular.
      *
@@ -95,52 +89,35 @@ public class Controller {
     }
 
     /**
-     * Método principal que controla el bucle del juego.
+     * Método principal que Simula la partida completa.
      * Pide la cantidad inicial de jugadores e itera los turnos consecutivamente 
      * hasta que solo quede 1 jugador en la lista.
      * Retorna al ganador.
      */
-    public void jugar() {
-        int cantidad = Integer.parseInt(vc.leerDato("Cuantos jugadores?\n"));
-        inicializarJugadores(cantidad);
-
+    public String jugar(int cantJugadores) {
+        
+        inicializarJugadores(cantJugadores);
+        
+        String mensaje = "";
         Jugador actual = lista.getCabeza();
-
+        
         while (lista.getTamanio() > 1) {
-            actual = tirarDados(actual);
+
+            int dado = tirarDado();
+            mensaje+= "Salio un: " + dado + "\n";
+            
+            if (!parImpar(dado)) {
+                mensaje += "Jugador #" + actual.getNumero() + " Muerto\n";
+            } else {
+                mensaje += "Jugador #" + actual.getNumero() + " Salvado\n";
+            }
+            
+            actual = ejecutarTurno(actual, dado);
+            
         }
-
-        vc.leerDato("\nGANADOR FINAL: Jugador #" + lista.getCabeza().getNumero());
-    }
-
-    /**
-     * Envoltura  gráfica y lógica para un turno completo.
-     * Genera el número del dado, informa a la vista del resultado y del estado 
-     * del jugador, ejecuta el turno en el modelo y muestra 
-     * cómo queda la lista tras la acción.
-     *
-     * @param actual El {@code Jugador} que debe realizar el lanzamiento.
-     * @return El {@code Jugador} que tomará el siguiente turno.
-     */
-    public Jugador tirarDados(Jugador actual) {
-        int dado = tirarDado();
-        vc.mostrarInformacion("Salio un: " + dado);
-
-        if (!parImpar(dado)) {
-            vc.mostrarInformacion(actual.getNumero() + " Muerto");
-        } else {
-            vc.mostrarInformacion("Salvado");
-        }
-
-        actual = ejecutarTurno(actual, dado);
-
-        vc.mostrarInformacion("Quedan:");
-        lista.mostrarJugadores();
-
-        return actual;
-    }
-
-    public void run() {
-        jugar();
+        
+        mensaje += "GANADOR FINAL: Jugador #" + lista.getCabeza().getNumero();
+        
+        return mensaje;
     }
 }
