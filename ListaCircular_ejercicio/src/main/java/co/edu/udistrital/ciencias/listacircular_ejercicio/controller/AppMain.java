@@ -1,4 +1,4 @@
-package co.ciencias.listacircular_ejercicio.controller;
+package co.edu.udistrital.ciencias.listacircular_ejercicio.controller;
 
 import javax.swing.SwingUtilities;
 
