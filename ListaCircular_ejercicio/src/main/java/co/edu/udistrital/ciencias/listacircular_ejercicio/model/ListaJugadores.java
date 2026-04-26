@@ -2,17 +2,44 @@ package co.edu.udistrital.ciencias.listacircular_ejercicio.model;
 
 import co.edu.udistrital.ciencias.listacircular_ejercicio.view.VistaConsola;
 
-public class ListaJugadores {
-    private Jugador tail;
-    private int tamanio;
-    private VistaConsola vc;
-    
-    public ListaJugadores() {
-        tail = null;
-        tamanio = 0;
-        vc = new VistaConsola();
-    }
+/**
+ * Estructura de datos que gestiona una Lista Enlazada Circular de objetos {@code Jugador}.
+ * <p>
+ * Implementa la lógica de enlace circular utilizando únicamente un puntero al 
+ * último elemento ({@code tail})
+ * </p>
+ *
+ * @version 1.0
+ */
 
+public class ListaJugadores {
+    
+    // --- Atributos ---
+    
+    private Jugador tail; //Puntero al último nodo de la lista circular.
+    private int tamanio; //Contador que mantiene el número total de jugadores
+    private VistaConsola vc; //Objeto de la capa de vista encargado de la salida de datos por consola.
+    
+    
+    /**
+     * Constructor.
+     * Inicializa una lista vacía, estableciendo los punteros en nulo, el tamaño 
+     * en cero y creando una nueva instancia para la vista por consola.
+     */
+    public ListaJugadores() {
+        
+        tail = null; 
+        tamanio = 0; 
+        vc = new VistaConsola(); 
+    }
+    
+
+    /**
+     * Crea y añade un nuevo jugador al final de la lista circular.
+     *
+     * @param numero El identificador numérico que se le asignará al nuevo jugador.
+     */
+    
     public void agregarJugador(int numero) {
         Jugador nuevoJugador = new Jugador();
         nuevoJugador.setNumero(numero);
