@@ -1,4 +1,4 @@
-package co.ciencias.listacircular_ejercicio.model;
+package co.edu.udistrital.ciencias.listacircular_ejercicio.model;
 
 public class Jugador {
     private int numero;

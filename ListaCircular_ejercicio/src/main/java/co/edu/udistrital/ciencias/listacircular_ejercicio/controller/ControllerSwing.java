@@ -1,7 +1,7 @@
-package co.ciencias.listacircular_ejercicio.controller;
+package co.edu.udistrital.ciencias.listacircular_ejercicio.controller;
 
-import co.ciencias.listacircular_ejercicio.model.Jugador;
-import co.ciencias.listacircular_ejercicio.view.VistaSwing;
+import co.edu.udistrital.ciencias.listacircular_ejercicio.model.Jugador;
+import co.edu.udistrital.ciencias.listacircular_ejercicio.view.VistaSwing;
 
 import javax.swing.*;
 import java.util.ArrayList;

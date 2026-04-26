@@ -1,6 +1,6 @@
-package co.ciencias.listacircular_ejercicio.model;
+package co.edu.udistrital.ciencias.listacircular_ejercicio.model;
 
-import co.ciencias.listacircular_ejercicio.view.VistaConsola;
+import co.edu.udistrital.ciencias.listacircular_ejercicio.view.VistaConsola;
 
 public class ListaJugadores {
     private Jugador tail;

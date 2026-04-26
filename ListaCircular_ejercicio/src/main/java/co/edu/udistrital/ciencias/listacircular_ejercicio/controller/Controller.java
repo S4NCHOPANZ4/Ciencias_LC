@@ -1,8 +1,8 @@
-package co.ciencias.listacircular_ejercicio.controller;
+package co.edu.udistrital.ciencias.listacircular_ejercicio.controller;
 
-import co.ciencias.listacircular_ejercicio.model.Jugador;
-import co.ciencias.listacircular_ejercicio.model.ListaJugadores;
-import co.ciencias.listacircular_ejercicio.view.VistaConsola;
+import co.edu.udistrital.ciencias.listacircular_ejercicio.model.Jugador;
+import co.edu.udistrital.ciencias.listacircular_ejercicio.model.ListaJugadores;
+import co.edu.udistrital.ciencias.listacircular_ejercicio.view.VistaConsola;
 import java.util.Random;
 
 public class Controller {

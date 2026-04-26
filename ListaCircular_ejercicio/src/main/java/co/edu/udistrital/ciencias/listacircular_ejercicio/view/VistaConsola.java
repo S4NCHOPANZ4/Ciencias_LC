@@ -1,4 +1,4 @@
-package co.ciencias.listacircular_ejercicio.view;
+package co.edu.udistrital.ciencias.listacircular_ejercicio.view;
 import java.util.Scanner;
 
 public class VistaConsola {
